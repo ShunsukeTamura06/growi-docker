@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  app:
+    image: weseek/growi:6
+    ports:
+      - 3000:3000
+    links:
+      - mongo:mongo
+      - redis:redis
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/growi
+      - REDIS_URL=redis://redis:6379
+
+  mongo:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - growi_data:/data/db
+
+  redis:
+    image: redis:7-alpine
+
+volumes:
+  growi_data:
