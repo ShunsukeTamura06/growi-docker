@@ -12,7 +12,7 @@ services:
       - mongo
       - redis
     environment:
-      - MONGO_URI=mongodb://mongo:27017/growi
+      - MONGO_URI=mongodb://root:example@mongo:27017/growi
       - REDIS_URL=redis://redis:6379
 
   mongo:
