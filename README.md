@@ -8,4 +8,4 @@ GROWIサーバーをDockerで構築するための設定ファイルです。
 docker compose up -d
 ```
 
-ブラウザで `http://localhost:3000` にアクセスしてください。
+ブラウザで `http://localhost:8080` にアクセスしてください。
