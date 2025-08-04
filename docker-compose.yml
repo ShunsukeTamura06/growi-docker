@@ -8,12 +8,15 @@ services:
     links:
       - mongo:mongo
       - redis:redis
+      - elasticsearch:elasticsearch
     depends_on:
       - mongo
       - redis
+      - elasticsearch
     environment:
       - MONGO_URI=mongodb://mongo:27017/growi
       - REDIS_URL=redis://redis:6379
+      - ELASTICSEARCH_URI=http://elasticsearch:9200
 
   mongo:
     image: mongo:4.4
@@ -23,5 +26,18 @@ services:
   redis:
     image: redis:7-alpine
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    environment:
+      - discovery.type=single-node
+      - cluster.name=growi
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - xpack.security.enabled=false
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+
 volumes:
   growi_data:
+  es_data:
